@@ -3,7 +3,7 @@ from flask import render_template
 from app.models import Category
 
 
-bp = Blueprint('main', __name__, url_prefix='/')
+bp = Blueprint(__name__, __name__, url_prefix='/')
 
 
 @bp.route('/')

@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block title %}Admin{% endblock %}
+
+{% block content %}
+
+<h2>Add category:</h2>
+
+<form action="/admin/add/category" method="post">
+
+	name: <input type="text" name="name">
+
+	parent:
+	<select name="parent_id" style="width: 170px;">
+		<option value=""></option>
+		{% for category in categories %}<option value="{{ category.id }}">{{ category.name }}</option>{% endfor %}
+	</select>
+
+	<input type="submit" value="Add category">
+</form>
+
+
+
+<h2>Add product:</h2>
+
+<form action="/admin/add/product" method="post">
+
+	name: <input type="text" name="name">
+
+	category:
+	<select name="category_id" style="width: 170px;">
+		{% for category in categories %}<option value="{{ category.id }}">{{ category.name }}</option>{% endfor %}
+	</select>
+
+	<input type="submit" value="Add product">
+</form>
+
+<h2>Categories:</h2>
+
+{% for c in categories %}<pre>
+id: {{ c.id }}
+name: {{ c.name }}
+parent: {% if c.parent %}{{ c.parent.name }}{% endif %}
+products: {% for p in c.products %}{{ p.name }}{% if not loop.last %}, {% endif %}{% endfor %}
+cats: {% for cat in c.sub_categories %}{{ cat.name }}{% if not loop.last %}, {% endif %}{% endfor %}
+</pre>{% endfor %}
+
+
+<h2>Products:</h2>
+
+{% for p in products %}<pre>
+id: {{ p.id }}
+name: {{ p.name }}
+category: {{ p.category.name }}
+</pre>{% endfor %}
+
+{% endblock %}
