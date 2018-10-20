@@ -3,55 +3,96 @@
 {% block title %}Admin{% endblock %}
 
 {% block content %}
+<div class="row">
+	<div class="col-6">
+		<div class="card">
+			<h3 class="card-header">
+				Add category:
+			</h3>
+			<div class="card-body">
+				<form action="/admin/add/category" method="post">
+					<div class="form-group">
+						<label for="cat_name">Name</label>
+						<input type="text" name="name" id="cat_name" class="form-control" placeholder="Enter name">
+					</div>
+					<div class="form-group">
+						<label for="cat_parent">Parent</label>
+						<select id="cat_parent" name="parent_id" class="form-control">
+							<option value="">No parent</option>
+							{% for category in categories %}<option value="{{ category.id }}">{{ category.name }}</option>{% endfor %}
+						</select>
+					</div>
+					<button type="submit" class="btn btn-primary">Add</button>
+				</form>
+			</div>
+		</div>
+	</div>
 
-<h2>Add category:</h2>
+	<div class="col-6">
+		<div class="card">
+			<h3 class="card-header">
+				Add product:
+			</h3>
+			<div class="card-body">
+				<form action="/admin/add/category" method="post">
+					<div class="form-group">
+						<label for="product_name">Name</label>
+						<input type="text" name="name" id="product_name" class="form-control" placeholder="Enter name">
+					</div>
+					<div class="form-group">
+						<label for="product_category">Category</label>
+						<select id="product_category" name="category_id" class="form-control">
+							{% for category in categories %}<option value="{{ category.id }}">{{ category.name }}</option>{% endfor %}
+						</select>
+					</div>
+					<button type="submit" class="btn btn-primary">Add</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
 
-<form action="/admin/add/category" method="post">
+<h2 style="margin: 50px auto 20px;">Categories</h2>
+<div class="row">
+	<div class="col-12">
+		<table class="table table-sm table-bordered table-hover">
+			<thead class="thead-light">
+				<tr>
+					<th scope="col">id</th>
+					<th scope="col">Name</th>
+					<th scope="col">Subcategories</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for c in categories %}<tr>
+					<th scope="row">{{ c.id }}</th>
+					<td>{{ c.name }}</td>
+					<td>{% for cat in c.sub_categories %}{{ cat.name }}{% if not loop.last %}, {% endif %}{% endfor %}</td>
+				</tr>{% endfor %}
+			</tbody>
+		</table>
+	</div>
+</div>
 
-	name: <input type="text" name="name">
-
-	parent:
-	<select name="parent_id" style="width: 170px;">
-		<option value=""></option>
-		{% for category in categories %}<option value="{{ category.id }}">{{ category.name }}</option>{% endfor %}
-	</select>
-
-	<input type="submit" value="Add category">
-</form>
-
-
-
-<h2>Add product:</h2>
-
-<form action="/admin/add/product" method="post">
-
-	name: <input type="text" name="name">
-
-	category:
-	<select name="category_id" style="width: 170px;">
-		{% for category in categories %}<option value="{{ category.id }}">{{ category.name }}</option>{% endfor %}
-	</select>
-
-	<input type="submit" value="Add product">
-</form>
-
-<h2>Categories:</h2>
-
-{% for c in categories %}<pre>
-id: {{ c.id }}
-name: {{ c.name }}
-parent: {% if c.parent %}{{ c.parent.name }}{% endif %}
-products: {% for p in c.products %}{{ p.name }}{% if not loop.last %}, {% endif %}{% endfor %}
-cats: {% for cat in c.sub_categories %}{{ cat.name }}{% if not loop.last %}, {% endif %}{% endfor %}
-</pre>{% endfor %}
-
-
-<h2>Products:</h2>
-
-{% for p in products %}<pre>
-id: {{ p.id }}
-name: {{ p.name }}
-category: {{ p.category.name }}
-</pre>{% endfor %}
-
+<h2 style="margin: 50px auto 20px;">Products</h2>
+<div class="row">
+	<div class="col-12">
+		<table class="table table-sm table-bordered table-hover">
+			<thead class="thead-light">
+				<tr>
+					<th scope="col">id</th>
+					<th scope="col">Name</th>
+					<th scope="col">Category</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for p in products %}<tr>
+					<th scope="row">{{ p.id }}</th>
+					<td>{{ p.name }}</td>
+					<td>{{ p.category.name }}</td>
+				</tr>{% endfor %}
+			</tbody>
+		</table>
+	</div>
+</div>
 {% endblock %}
