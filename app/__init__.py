@@ -7,7 +7,7 @@ from . import controllers
 
 application = Flask('app')
 application.config['SECRET_KEY']                     = 'NjNBwf6>s>!qt6|7>gr@2Y{?EfroT<'
-application.config['SQLALCHEMY_DATABASE_URI']        = 'mysql+pymysql://sql7259034:thpkq7UFdQ@sql7.freemysqlhosting.net/sql7259034'
+application.config['SQLALCHEMY_DATABASE_URI']        = 'mysql+pymysql://flasky:pass@word56@db4free.net/flasky'
 application.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 application.debug = True
 
