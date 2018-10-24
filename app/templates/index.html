@@ -3,5 +3,33 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
-{{categories}}
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+	<div class="collapse navbar-collapse">
+		Категории: 
+		<ul class="navbar-nav">
+			{% for category in categories %}<li class="nav-item">
+				<a class="nav-link" href="{{ url_for('app.controllers.index.index', category=category.id) }}">
+					{{ category.name }}
+				</a>
+			</li>{% endfor %}
+		</ul>
+	</div>
+</nav>
+
+<table class="table">
+	<thead>
+		<tr>
+			<th scope="col">#</th>
+			<th scope="col">Category</th>
+			<th scope="col">Name</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for product in products %}<tr>
+			<th scope="row">{{ loop.index }}</th>
+			<td>{{ product.category.name }}</td>
+			<td>{{ product.name }}</td>
+		</tr>{% endfor %}
+	</tbody>
+</table>
 {% endblock %}
