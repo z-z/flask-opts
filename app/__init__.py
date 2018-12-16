@@ -6,10 +6,10 @@ from flask_migrate import Migrate, MigrateCommand
 from . import controllers
 
 application = Flask('app')
-application.config['SECRET_KEY']                     = 'NjNBwf6>s>!qt6|7>gr@2Y{?EfroT<'
-application.config['SQLALCHEMY_DATABASE_URI']        = 'mysql+pymysql://flasky:pass@word56@db4free.net/flasky'
-application.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
-application.debug = True
+application.config.from_object('app.config')
+
+# если не будут удаляться элементы в БД
+# SET FOREIGN_KEY_CHECKS = 0;
 
 db = SQLAlchemy(application)
 migrate = Migrate(application, db)

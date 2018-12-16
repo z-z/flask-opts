@@ -1,0 +1,9 @@
+{% if cat.parent is none %}
+	{{ cat.name }}
+{% else %}
+	{% with cat = cat.parent %}
+		{% include 'partials/category.html' %}
+	{% endwith %}
+	->
+	{{ cat.name }}
+{% endif %}

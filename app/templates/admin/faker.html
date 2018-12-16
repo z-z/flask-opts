@@ -1,0 +1,29 @@
+{% extends 'admin/admin_base.html' %}
+
+{% block title %}Admin - faker{% endblock %}
+
+{% block body %}
+<form class="form-inline" method="get" action="">
+	<div class="form-group">Categories</div>
+	<div class="form-group ml-2">
+		<label for="catsCount" class="sr-only">count</label>
+		<input type="number" class="form-control" id="catsCount" placeholder="count" name="count">
+	</div>
+	<button type="submit" class="btn btn-primary ml-2" name="model" value="categories">Add</button>
+	{% if categories|length > 1 %}<a href="{{ url_for('app.controllers.admin.faker', remove='categories') }}" class="btn btn-primary ml-2">
+		Remove all (categories: {{ categories|length }}, products: {{ products|length }})
+	</a>{% endif %}
+</form>
+
+<form class="form-inline mt-5" method="get" action="">
+	<div class="form-group">Products</div>
+	{% if categories|length > 1 %}<div class="form-group ml-2">
+		<label for="catsCount" class="sr-only">count</label>
+		<input type="number" class="form-control" id="catsCount" placeholder="count" name="count">
+	</div>
+	<button type="submit" class="btn btn-primary ml-2" name="model" value="products">Add</button>{% endif %}
+	{% if products|length >= 1 %}<a href="{{ url_for('app.controllers.admin.faker', remove='products') }}" class="btn btn-primary ml-2">
+		Remove all products ({{ products|length }})
+	</a>{% endif %}
+</form>
+{% endblock %}
